@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: amazon-wishlist-monitor
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: insiraseuemail@gmail.com
+    password: aaaa aaaa aaaa aaaa #insira sua 'senha de app' do gmail https://support.google.com/accounts/answer/185833?hl=pt-BR
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    default-encoding: UTF-8
+
+email:
+  sender: "insiraseuemail@gmail.com"
+
+webdriver:
+  chrome:
+    driver-path: "C:\\Users\\seu_usuario\\AppData\\Roaming\\chrome-win64\\chromedriver.exe" # baixe o ChromeDriver e coloque a rota que voce descompactou
+
+wishlist:
+  urls:
+    - "https://www.amazon.com.br/hz/wishlist/ls/2312312312312?ref_=list_d_wl_lfu_nav_2"
+    - "https://www.amazon.com.br/hz/wishlist/ls/0000000000562?ref_=list_d_wl_lfu_nav_1"
+    - "https://www.amazon.com.br/hz/wishlist/ls/5665656565666?ref_=list_d_wl_lfu_nav_3"
+    - "https://www.amazon.com.br/hz/wishlist/ls/8798978989899?ref_=list_d_wl_lfu_nav_4"
+    - "https://www.amazon.com.br/hz/wishlist/ls/1233453211235?ref_=list_d_wl_lfu_nav_6"
+
+scheduler:
+  time: "0 30 15 * * *" # 15:30 everyday
