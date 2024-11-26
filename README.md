@@ -29,7 +29,8 @@ It has only been tested with Windows 11. I will soon test it on Ubuntu on a Rasp
 This application works as a daemon. It is ideal to be placed on a server, or on a machine that is turned on 24 hours a day. When launched, it checks when it should execute the call to the wishlist URL, in the cron expression. For example, at 3:30 pm every day. At that time, a call is made to the Amazon page, where the content of the page is downloaded and all the products that are eligible for a discount are categorized. After that, the application sends a summary email to the recipient with the list of products, prices and discounts.
 
 # RUN EXECUTABLE
-Just download the release (.jar file) and run the command in Windows cmd, replacing the fields:
+Just download the [release](https://github.com/paulloestevam/amazon-wishlist-monitor/releases/tag/1.0.0) (.jar file) and run the command in Windows cmd, replacing the fields:
+
 - spring.mail.username (your gmail email)
 - spring.mail.password (your app password, go to the [SMTP Email Sending](#smtp-email-sending) to find out how to get it)
 - webdriver.chrome.driver-path (the path to your chromedriver.exe file, go to the [WebDriver](#webdriver) section to download it)
