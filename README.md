@@ -9,8 +9,9 @@ amazon-wishlist-monitor - Monitors and notifies you about product offers from yo
 
 - [DESCRIPTION](#description)
 - [HOW IT WORKS](#how-it-works)
-- [INSTALLATION](#installation)
-- [CONFIGURATION](#configuration)
+- [RUN EXECUTABLE](#run-executable)
+- [REQUIREMENTS](#requirements)
+- [MANUAL CONFIGURATION](#manual-configuration)
 
 # DESCRIPTION
 You can use this application to receive daily emails if your products, from your wishlists on the Amazon website, go on sale.
@@ -27,8 +28,38 @@ It has only been tested with Windows 11. I will soon test it on Ubuntu on a Rasp
 # HOW IT WORKS
 This application works as a daemon. It is ideal to be placed on a server, or on a machine that is turned on 24 hours a day. When launched, it checks when it should execute the call to the wishlist URL, in the cron expression. For example, at 3:30 pm every day. At that time, a call is made to the Amazon page, where the content of the page is downloaded and all the products that are eligible for a discount are categorized. After that, the application sends a summary email to the recipient with the list of products, prices and discounts.
 
-# INSTALLATION
+# RUN EXECUTABLE
+Just download the release (.jar file) and run the command in Windows cmd, replacing the fields:
+- spring.mail.username (your gmail email)
+- spring.mail.password (your app password, go to the [SMTP Email Sending](#smtp-email-sending) to find out how to get it)
+- webdriver.chrome.driver-path (the path to your chromedriver.exe file, go to the [WebDriver](#webdriver) section to download it)
+- wishlist.urls (the url of your public wishlist, if you have more than one, separate them with a comma)
+- scheduler.time (the desired time for automatic execution)
 
+Cmd:
+
+    java -jar amazon-wishlist-monitor-1.0.0.jar --spring.mail.username=insiraseuemail@gmail.com --spring.mail.password="aaaa eeee iiii oooo" --email.sender=insiraseuemail@gmail.com --webdriver.chrome.driver-path="C:\\Users\\paull\\AppData\\Roaming\\chrome-win64\\chromedriver.exe" --wishlist.urls="https://www.amazon.com.br/hz/wishlist/ls/19BUDH5MAAAAA?ref_=list_d_wl_lfu_nav_2,https://www.amazon.com.br/hz/wishlist/ls/1QSH2OXCEEEEE?ref_=list_d_wl_lfu_nav_1" --scheduler.time="0 30 15 * * *" --discountPercentage=10 --productLineWidth=200
+
+
+Powershell
+
+    java -jar amazon-wishlist-monitor-1.0.0.jar `
+      --spring.mail.username="insiraseuemail@gmail.com" `
+    --spring.mail.password="aaaa eeee iiii oooo" `
+      --email.sender="insiraseuemail@gmail.com" `
+    --webdriver.chrome.driver-path="C:\Users\paull\AppData\Roaming\chrome-win64\chromedriver.exe" `
+      --wishlist.urls="https://www.amazon.com.br/hz/wishlist/ls/19BUDH5MAAAAA?ref_=list_d_wl_lfu_nav_2,https://www.amazon.com.br/hz/wishlist/ls/1QSH2OXCEEEEE?ref_=list_d_wl_lfu_nav_1" `
+    --scheduler.time="0 30 15 * * *" `
+      --discountPercentage=10 `
+    --productLineWidth=200
+
+At the scheduled time indicated by the scheduler.time attribute, the application will execute the process and send the email.
+
+You can also manually trigger the notification by sending a request to the application's 'amazon/wishlist' endpoint. Open your browser and type http://localhost:8080/amazon/wishlist and press enter. If the application is up, the notification will be sent.
+# REQUIREMENTS
+
+## Java
+To run the "java -jar" command you need to have Java installed. Download the version appropriate for your operating system from: https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html
 
 ## WebDriver
 
@@ -38,15 +69,17 @@ Download the webdriver according to your Chrome version at https://developer.chr
         driver-path: "C:\\Users\\paull\\AppData\\Roaming\\chrome-win64\\chromedriver.exe"
 
 ### Why is it necessary?
-The Amazon wishlist page has a feature called page lazy loading, which loads the list items as you scroll the mouse/page. This prevents the amazon-wishlist-monitor application from reading all the list items.
+The Amazon wishlist page utilizes a feature called lazy loading, which loads list items dynamically as the user scrolls through the page. This technique only loads content when it becomes visible, causing issues for the application, as it needs to access the entire wishlist.
 
 That's why it's necessary to use a Selenium library, used for page testing, which basically opens a hidden window with the wishlist and scrolls the page with the mouse... This is called WebDriver. Without it, the application won't work.
 
-# CONFIGURATION
+# MANUAL CONFIGURATION
 ## SMTP Email Sending
 You need to configure application.yaml with your username (insert email) and the Gmail "app password" that you get from the page https://support.google.com/accounts/answer/185833?hl=en-US
 
-This password has 16 digits, separated by spaces in groups of 4, for example "aaaa aaaa aaaa aaaa "
+Google does not allow you to use your Gmail password directly, so for security, you should create an "app password".
+
+This password consists of 16 characters, separated by spaces into groups of 4, for example "aaaa aaaa aaaa aaaa "
 You may need to enable IMAP in your Gmail settings.
     
     mail:

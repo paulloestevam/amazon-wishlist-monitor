@@ -128,7 +128,7 @@ public class AmazonService {
             emailTitle += " - " + totalDeals + "/" + totalProducts;
             sendEmail("paulloestevam@gmail.com", emailTitle, wishlistSummary.toString());
         } catch (Exception e) {
-            log.error("Erro ao buscar a wishlist: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             driver.quit();
         }
