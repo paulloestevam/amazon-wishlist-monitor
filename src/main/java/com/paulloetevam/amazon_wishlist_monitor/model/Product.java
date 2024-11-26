@@ -1,6 +1,7 @@
 package com.paulloetevam.amazon_wishlist_monitor.model;
 
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Value;
 
 @Data
 public class Product {
@@ -8,6 +9,9 @@ public class Product {
     private String price;
     private String priceDrop;
     private String deal;
+
+    @Value("${discountPercentage}")
+    private Integer discountPercentage;
 
     public Product(String title, String price, String priceDrop, String deal) {
         this.title = title;

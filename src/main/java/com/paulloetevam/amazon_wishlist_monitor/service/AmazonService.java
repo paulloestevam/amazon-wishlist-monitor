@@ -34,6 +34,9 @@ public class AmazonService {
     @Value("${email.sender}")
     private String emailSender;
 
+    @Value("${productLineWidth}")
+    private Integer productLineWidth;
+
     private int totalProducts;
     private int totalDeals;
 
@@ -112,8 +115,8 @@ public class AmazonService {
                             ++count,
                             product.getPrice(),
                             formattedDiscountOrDeal,
-                            product.getTitle().length() > 21
-                                    ? product.getTitle().substring(0, 21)
+                            product.getTitle().length() > productLineWidth
+                                    ? product.getTitle().substring(0, productLineWidth)
                                     : product.getTitle()
                     ));
                     totalDeals++;

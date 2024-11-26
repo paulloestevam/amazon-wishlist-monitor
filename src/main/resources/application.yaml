@@ -31,3 +31,6 @@ wishlist:
 
 scheduler:
   time: "0 30 15 * * *" # 15:30 everyday
+
+discountPercentage: 45
+productLineWidth: 300
