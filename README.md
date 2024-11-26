@@ -1,6 +1,11 @@
 
 amazon-wishlist-monitor - Monitors and notifies you about product offers from your Amazon wish lists.
 
+<img src="https://github.com/user-attachments/assets/6f6e2f4b-dbbd-49b2-ba77-8edfde5333ab" alt="Screenshot 1" width="100" style="margin-right:100px;">
+
+<img src="https://github.com/user-attachments/assets/03c057d8-ae10-44cc-acb5-1ead45f8b60e" alt="Screenshot 2" width="400">
+<br><br>
+
 
 - [DESCRIPTION](#description)
 - [HOW IT WORKS](#how-it-works)
